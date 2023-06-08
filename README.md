@@ -4,7 +4,7 @@ Terraform module template for DigitalOcean and instellar.app. Click `Use this te
 
 This module will setup networking and compute on digitalocean and automatically add the cluster to instellar.app. This is a fully automated workflow for managing your infrastructure with instellar.
 
-## Basic Usage
+## Basic Usage via CLI
 
 Once you've cloned this repo, add a `.auto.tfvars` file. This file will automatically be ignored and not checked into your repository.
 
