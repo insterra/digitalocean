@@ -15,7 +15,7 @@ do_token = <your digital ocean api token>
 instellar_auth_token = <your instellar auth token>
 ```
 
-You can then replace the `cluster_name` inside the main.tf file and the `ssh_keys` fingerprint with the one from your digital ocean dashboard. You can see [this part](https://instellar.app/docs/setup-a-cluster/digitalocean/#ssh-key) of our documentation to learn more about ssh keys.
+You can then replace the `cluster_name` inside the main.tf file and the `ssh_keys` fingerprint with the one from your digital ocean dashboard. You can get the ssh key fingerprint from [this page](https://cloud.digitalocean.com/account/security) of your digitalocean account.
 
 The `node_size` parameter and `size` parameter under `cluster_topology` can also be changed depending on how much load you will anticipate.
 
