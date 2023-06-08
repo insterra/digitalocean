@@ -1,6 +1,6 @@
 # DigitalOcean Compute
 
-Terraform module template for DigitalOcean and instellar.app.
+Terraform module template for DigitalOcean and instellar.app. Click `Use this template` and set it up on your organization.
 
 This module will setup networking and compute on digitalocean and automatically add the cluster to instellar.app. This is a fully automated workflow for managing your infrastructure with instellar.
 
