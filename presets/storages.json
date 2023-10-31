@@ -1,0 +1,10 @@
+[
+  {
+    "module_name": "upmaru/instellar/digitalocean//modules/storage",
+    "category_name": "storage",
+    "services": ["space"],
+    "tier": "production",
+    "name": "base",
+    "attributes": {}
+  }
+]

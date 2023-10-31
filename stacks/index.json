@@ -1,0 +1,15 @@
+[
+  {
+    "name": "do-bootstrap",
+    "organization_name": "upmaru",
+    "visibility": "public",
+    "description": "Starting point for digitalocean setup.",
+    "components": [
+      {
+        "category_name": "storage",
+        "module_name": "upmaru/instellar/digitalocean//modules/storage",
+        "name": "base"
+      }
+    ]
+  }
+]

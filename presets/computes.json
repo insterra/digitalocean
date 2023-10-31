@@ -1,0 +1,18 @@
+[
+  {
+    "module_name": "upmaru/instellar/digitalocean",
+    "category_name": "compute",
+    "services": ["droplet"],
+    "tier": "production",
+    "name": "starter",
+    "attributes": {
+      "node_size": "s-2vcpu-4gb-amd",
+      "cluster_topology": [
+        {"id": 1, "name": "01", "size": "s-2vcpu-4gb-amd"},
+        {"id": 2, "name": "02", "size": "s-2vcpu-4gb-amd"}
+      ],
+      "storage_size": 50,
+      "ssh_keys": []
+    }
+  }
+]

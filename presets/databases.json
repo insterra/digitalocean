@@ -1,0 +1,15 @@
+[
+  {
+    "module_name": "upmaru/instellar/digitalocean//modules/database",
+    "category_name": "database",
+    "services": ["postgresql", "do"],
+    "tier": "development",
+    "name": "postgresql-starter",
+    "attributes": {
+      "db_size": "db-s-1vcpu-1gb",
+      "engine": "pg",
+      "engine_version": "15",
+      "db_node_count": 1
+    }
+  }
+]
