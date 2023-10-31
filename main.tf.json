@@ -1,0 +1,105 @@
+{
+  "variable": {
+    "identifier": {},
+    "do_region": {},
+    "do_token": {},
+    "do_access_key": {},
+    "do_secret_key": {},
+    "instellar_host": {},
+    "instellar_auth_token": {}
+  },
+  "provider": {
+    "digitalocean": {
+      "token": "${var.do_token}",
+      "spaces_access_id": "${var.do_access_key}",
+      "spaces_secret_key": "${var.do_secret_key}"
+    },
+    "instellar": {
+      "host": "${var.instellar_host}",
+      "auth_token": "${var.instellar_auth_token}"
+    }
+  },
+  "module": {
+    "storage_space": {
+      "source": "upmaru/instellar/digitalocean//modules/storage",
+      "version": "~> 0.5",
+      "bucket_name": "${var.identifier}",
+      "region": "${var.do_region}"
+    },
+    "networking_foundation": {
+      "source": "upmaru/instellar/digitalocean//modules/networking",
+      "version": "~> 0.5",
+      "identifier": "${var.identifier}",
+      "region": "${var.region}",
+      "vpc_ip_range": "10.0.1.0/24"
+    },
+    "compute_primary": {
+      "source": "upmaru/instellar/digitalocean",
+      "version": "~> 0.5",
+      "vpc_id": "${module.networking_foundation.vpc_id}",
+      "vpc_ip_range": "${module.networking_foundation.vpc_ip_range}",
+      "storage_size": 50,
+      "identifier": "orion",
+      "node_size": "s-2vcpu-4gb-amd",
+      "cluster_topology": [
+        {"id": 1, "name": "01", "size": "s-2vcpu-4gb-amd"},
+        {"id": 2, "name": "02", "size": "s-2vcpu-4gb-amd"}
+      ],
+      "ssh_keys": [
+        "52:0d:1a:16:5e:64:22:28:1c:ec:3a:72:ce:2f:77:ba"
+      ]
+    },
+    "database_postgresql": {
+      "source": "upmaru/instellar/digitalocean//modules/database",
+      "version": "~> 0.5",
+      "identifier": "perceptual",
+      "db_size": "db-s-1vcpu-1gb",
+      "db_node_count": 1,
+      "project_id": "${module.compute_primary.project_id}",
+      "vpc_id": "${module.networking_foundation.vpc_id}",
+      "db_access_tags": [
+        "${module.compute_primary.db_access_tag_id}"
+      ]
+    },
+    "link_storage_space": {
+      "source": "upmaru/bootstrap/instellar//modules/storage",
+      "version": "~> 0.5",
+      "bucket": "${module.storage_space.name}",
+      "region": "${var.do_region}",
+      "host": "${module.storage_space.host}",
+      "access_key": "${var.do_access_key}",
+      "secret_key": "${var.do_secret_key}"
+    },
+    "link_compute_primary": {
+      "source": "upmaru/bootstrap/instellar",
+      "version": "~> 0.5",
+      "cluster_name": "${module.compute_primary.identifier}",
+      "region": "${var.do_region}",
+      "provider_name": "digitalocean",
+      "cluster_address": "${module.compute_primary.cluster_address}",
+      "password_token": "${module.compute_primary.trust_token}",
+      "bootstrap_node": "${module.compute_primary.bootstrap_node}",
+      "nodes": "${module.compute_primary.nodes}"
+    },
+    "link_database_postgresql": {
+      "source": "upmaru/bootstrap/instellar//modules/service",
+      "version": "~> 0.5",
+      "slug": "${module.database_postgresql.identifier}",
+      "provider_name": "digitalocean",
+      "driver": "database/postgresql",
+      "driver_version": "${module.database_posgresql.engine_version}",
+      "cluster_ids": [
+        "${module.link_compute_primary.cluster_id}"
+      ],
+      "channels": ["develop", "master", "main"],
+      "credential": {
+        "username": "${module.database_postgresql.username}",
+        "password": "${module.database_postgresql.password}",
+        "resource": "${module.database_postgresql.db_name}",
+        "host": "${module.database_postgresql.address}",
+        "port": "${module.database_postgresql.port}",
+        "secure": true
+      }
+    }
+  }
+}
