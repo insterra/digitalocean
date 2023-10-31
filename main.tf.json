@@ -27,7 +27,7 @@
       "region": "${var.do_region}"
     },
     "networking_foundation": {
-      "source": "upmaru/instellar/digitalocean//modules/networking",
+      "source": "upmaru/instellar/digitalocean//modules/network",
       "version": "~> 0.5",
       "identifier": "${var.identifier}",
       "region": "${var.region}",
