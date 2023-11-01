@@ -9,6 +9,23 @@
         "category_name": "storage",
         "module_name": "upmaru/instellar/digitalocean//modules/storage",
         "name": "base"
+      },
+      {
+        "category_name": "networking",
+        "module_name": "upmaru/instellar/digitalocean//modules/network",
+        "name": "base",
+        "children": [
+          {
+            "category_name": "compute",
+            "module_name": "upmaru/instellar/digitalocean",
+            "name": "starter"
+          },
+          {
+            "category_name": "database",
+            "module_name": "upmaru/instellar/digitalocean//modules/database",
+            "name": "postgresql-starter"
+          }
+        ]
       }
     ]
   }

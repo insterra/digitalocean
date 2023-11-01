@@ -1,0 +1,12 @@
+[
+  {
+    "category_name": "link",
+    "module_name": "upmaru/bootstrap/instellar",
+    "key": "cluster_id",
+    "with": {
+      "category_name": "compute",
+      "module_name": "upmaru/instellar/digitalocean",
+      "key": "db_access_tag_id"
+    }
+  }
+]

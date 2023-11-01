@@ -30,7 +30,7 @@
       "source": "upmaru/instellar/digitalocean//modules/network",
       "version": "~> 0.5",
       "identifier": "${var.identifier}",
-      "region": "${var.region}",
+      "region": "${var.do_region}",
       "vpc_ip_range": "10.0.1.0/24"
     },
     "compute_primary": {
@@ -49,6 +49,22 @@
         "52:0d:1a:16:5e:64:22:28:1c:ec:3a:72:ce:2f:77:ba"
       ]
     },
+    "compute_secondary": {
+      "source": "upmaru/instellar/digitalocean",
+      "version": "~> 0.5",
+      "vpc_id": "${module.networking_foundation.vpc_id}",
+      "vpc_ip_range": "${module.networking_foundation.vpc_ip_range}",
+      "storage_size": 50,
+      "identifier": "milkyway",
+      "node_size": "s-2vcpu-4gb-amd",
+      "cluster_topology": [
+        {"id": 1, "name": "01", "size": "s-2vcpu-4gb-amd"},
+        {"id": 2, "name": "02", "size": "s-2vcpu-4gb-amd"}
+      ],
+      "ssh_keys": [
+        "52:0d:1a:16:5e:64:22:28:1c:ec:3a:72:ce:2f:77:ba"
+      ]
+    },
     "database_postgresql": {
       "source": "upmaru/instellar/digitalocean//modules/database",
       "version": "~> 0.5",
@@ -56,11 +72,13 @@
       "db_size": "db-s-1vcpu-1gb",
       "engine": "pg",
       "engine_version": "15",
+      "region": "${var.do_region}",
       "db_node_count": 1,
       "project_id": "${module.compute_primary.project_id}",
       "vpc_id": "${module.networking_foundation.vpc_id}",
       "db_access_tags": [
-        "${module.compute_primary.db_access_tag_id}"
+        "${module.compute_primary.db_access_tag_id}",
+        "${module.compute_secondary.db_access_tag_id}"
       ]
     },
     "link_storage_space": {
@@ -83,13 +101,24 @@
       "bootstrap_node": "${module.compute_primary.bootstrap_node}",
       "nodes": "${module.compute_primary.nodes}"
     },
+    "link_compute_secondary": {
+      "source": "upmaru/bootstrap/instellar",
+      "version": "~> 0.5",
+      "cluster_name": "${module.compute_secondary.identifier}",
+      "region": "${var.do_region}",
+      "provider_name": "digitalocean",
+      "cluster_address": "${module.compute_secondary.cluster_address}",
+      "password_token": "${module.compute_secondary.trust_token}",
+      "bootstrap_node": "${module.compute_secondary.bootstrap_node}",
+      "nodes": "${module.compute_secondary.nodes}"
+    },
     "link_database_postgresql": {
       "source": "upmaru/bootstrap/instellar//modules/service",
       "version": "~> 0.5",
       "slug": "${module.database_postgresql.identifier}",
       "provider_name": "digitalocean",
       "driver": "database/postgresql",
-      "driver_version": "${module.database_posgresql.engine_version}",
+      "driver_version": "${module.database_postgresql.engine_version}",
       "cluster_ids": [
         "${module.link_compute_primary.cluster_id}"
       ],
