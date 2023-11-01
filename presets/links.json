@@ -1,0 +1,56 @@
+[
+  {
+    "module_name": "upmaru/bootstrap/instellar//module/storage",
+    "category_name": "link",
+    "services": ["space"],
+    "tier": "production",
+    "name": "storage",
+    "attributes": {}
+  },
+  {
+    "module_name": "upmaru/bootstrap/instellar",
+    "category_name": "link",
+    "services": ["droplet"],
+    "tier": "development",
+    "name": "compute-development",
+    "attributes": {
+      "uplink_channel": "develop"
+    }
+  },
+  {
+    "module_name": "upmaru/bootstrap/instellar",
+    "category_name": "link",
+    "services": ["droplet"],
+    "tier": "production",
+    "name": "compute-production",
+    "attributes": {}
+  },
+  {
+    "module_name": "upmaru/bootstrap/instellar//modules/service",
+    "category_name": "link",
+    "services": ["postgresql", "do"],
+    "tier": "development",
+    "name": "postgresql-dev",
+    "attributes": {
+      "driver": "database/postgresql",
+      "channels": ["develop"],
+      "credential": {
+        "secure": true
+      }
+    }
+  },
+  {
+    "module_name": "upmaru/bootstrap/instellar//modules/service",
+    "category_name": "link",
+    "services": ["postgresql", "do"],
+    "tier": "production",
+    "name": "postgresql-prod",
+    "attributes": {
+      "driver": "database/postgresql",
+      "channels": ["main", "master"],
+      "credential": {
+        "secure": true
+      }
+    }
+  }
+]
