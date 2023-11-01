@@ -1,6 +1,6 @@
 [
   {
-    "module_name": "upmaru/bootstrap/instellar//module/storage",
+    "module_name": "upmaru/bootstrap/instellar//modules/storage",
     "category_name": "link",
     "services": ["space"],
     "tier": "production",
