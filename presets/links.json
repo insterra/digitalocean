@@ -14,6 +14,7 @@
     "tier": "development",
     "name": "compute-development",
     "attributes": {
+      "kit_slug": "lite",
       "uplink_channel": "develop"
     }
   },
@@ -23,7 +24,9 @@
     "services": ["droplet"],
     "tier": "production",
     "name": "compute-production",
-    "attributes": {}
+    "attributes": {
+      "kit_slug": "lite"
+    }
   },
   {
     "module_name": "upmaru/bootstrap/instellar//modules/service",
