@@ -96,6 +96,7 @@
       "cluster_name": "${module.compute_primary.identifier}",
       "region": "${var.do_region}",
       "provider_name": "digitalocean",
+      "uplink_channel": "develop",
       "kit_slug": "lite",
       "cluster_address": "${module.compute_primary.cluster_address}",
       "password_token": "${module.compute_primary.trust_token}",
