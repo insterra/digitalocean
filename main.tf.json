@@ -126,6 +126,7 @@
         "${module.link_compute_primary.cluster_id}"
       ],
       "channels": ["develop", "master", "main"],
+      "certificate": "${module.database_postgresql.certificate}",
       "credential": {
         "username": "${module.database_postgresql.username}",
         "password": "${module.database_postgresql.password}",
