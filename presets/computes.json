@@ -6,6 +6,7 @@
     "tier": "production",
     "name": "starter",
     "attributes": {
+      "bastion_size": "s-1vcpu-512mb-10gb",
       "node_size": "s-2vcpu-4gb-amd",
       "cluster_topology": [
         {"id": 1, "name": "01", "size": "s-2vcpu-4gb-amd"},
