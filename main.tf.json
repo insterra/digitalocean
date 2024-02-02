@@ -36,9 +36,12 @@
     "compute_primary": {
       "source": "upmaru/instellar/digitalocean",
       "version": "~> 0.5",
+      "project_id": "${module.networking_foundation.project_id}",
       "vpc_id": "${module.networking_foundation.vpc_id}",
       "vpc_ip_range": "${module.networking_foundation.vpc_ip_range}",
       "storage_size": 50,
+      "region": "${var.do_region}",
+      "bastion_size": "s-1vcpu-1gb",
       "identifier": "orion",
       "node_size": "s-2vcpu-4gb-amd",
       "cluster_topology": [
@@ -52,9 +55,12 @@
     "compute_secondary": {
       "source": "upmaru/instellar/digitalocean",
       "version": "~> 0.5",
+      "project_id": "${module.networking_foundation.project_id}",
       "vpc_id": "${module.networking_foundation.vpc_id}",
       "vpc_ip_range": "${module.networking_foundation.vpc_ip_range}",
       "storage_size": 50,
+      "region": "${var.do_region}",
+      "bastion_size": "s-1vcpu-1gb",
       "identifier": "milkyway",
       "node_size": "s-2vcpu-4gb-amd",
       "cluster_topology": [
@@ -74,7 +80,7 @@
       "engine_version": "15",
       "region": "${var.do_region}",
       "db_node_count": 1,
-      "project_id": "${module.compute_primary.project_id}",
+      "project_id": "${module.networking_foundation.project_id}",
       "vpc_id": "${module.networking_foundation.vpc_id}",
       "db_access_tags": [
         "${module.compute_primary.db_access_tag_id}",
